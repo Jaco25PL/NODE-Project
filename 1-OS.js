@@ -1,4 +1,6 @@
 const os = require('node:os')
+// If we want to use mjs we should import this as ->
+// import { platform, release, arch, totalmem, userInfo } from 'node:os'
 
 console.log('Operative System information:')
 
