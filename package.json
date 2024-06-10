@@ -12,5 +12,9 @@
     "course"
   ],
   "author": "Joaquin Piedra Langone",
-  "license": "ISC"
+  "license": "ISC",
+  "homepage": "https://github.com/Jaco25PL/NODE-Project.git",
+  "dependencies": {
+    "picocolors": "1.0.1"
+  }
 }
