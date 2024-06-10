@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   picocolors:
-    specifier: ^1.0.1
+    specifier: 1.0.1
     version: 1.0.1
 
 packages:
