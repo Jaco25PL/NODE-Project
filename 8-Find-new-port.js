@@ -1,3 +1,5 @@
+// This is to find an avaliable port if the desired port passed by parameter is already in use
+
 const net = require('node:net')
 
 function findFreePort ( desiredPort ) {
