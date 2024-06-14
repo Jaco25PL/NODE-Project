@@ -1,6 +1,6 @@
 const http = require('node:http')
 
-const desiredPort = process.env.PORT ?? 3210
+const desiredPort = process.env.PORT ?? 0
 
 const processRequest = (req, res) => {
 
@@ -20,8 +20,7 @@ const processRequest = (req, res) => {
 
 const server = http.createServer(processRequest)
 
-// const port = 3210
-
 server.listen( desiredPort , () => {
-    console.log( `Running at http://localhost:${desiredPort}` )
+    const { port } = server.address()
+    console.log( `Running at http://localhost:${port}` )
 } )
