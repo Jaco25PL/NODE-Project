@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "nodemon 10-http.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -16,5 +16,8 @@
   "homepage": "https://github.com/Jaco25PL/NODE-Project.git",
   "dependencies": {
     "picocolors": "1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
   }
 }
