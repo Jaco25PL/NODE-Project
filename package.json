@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon 10-http.js",
+    "dev": "nodemon 12-routing.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -15,6 +15,7 @@
   "license": "ISC",
   "homepage": "https://github.com/Jaco25PL/NODE-Project.git",
   "dependencies": {
+    "express": "^4.19.2",
     "picocolors": "1.0.1"
   },
   "devDependencies": {

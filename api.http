@@ -1,1 +1,14 @@
-GET http://localhost:1234/pokemon/ditto
+### Recover info from pokemon ditto
+GET http://localhost:3210/pokemon/ditto
+
+### Create a new pokemon
+POST http://localhost:3210/pokemon
+Content-Type: application/json
+
+{
+    "name": "ditto",
+    "type": "normal",
+    "moves": [
+        "transorm"
+    ]
+}

@@ -1,7 +1,7 @@
 const http = require('node:http')
 
 // From the pokemon API
-const dittoJSON = require('/pokemon/ditto.json')
+const dittoJSON = require('./pokemon/ditto.json')
 
 const port = 3210
 
@@ -24,6 +24,18 @@ const processRequest = (req , res) => {
       switch (url) {
         case '/pokemon': // => create a new pokemon
           let body = ''
+
+          // Listen for the event data
+          req.on('data' , chunk => {
+            body += chunk.toString()
+          })
+
+          req.on('end', () => {
+            const data = JSON.parse(body)
+            // Call a data base to save the info
+            res.writeHead(201 , { 'Content-Type': 'application/json; charset=utf-8' }) // The code 201 means that we add new info
+            res.end(JSON.stringify(data))
+          })
       }
 
   }
