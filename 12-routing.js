@@ -19,6 +19,13 @@ const processRequest = (req , res) => {
           res.statusCode = 404
           return res.end('<h1>Error 404</h1>')
       }
+
+    case 'POST':
+      switch (url) {
+        case '/pokemon': // => create a new pokemon
+          let body = ''
+      }
+
   }
 
 }
