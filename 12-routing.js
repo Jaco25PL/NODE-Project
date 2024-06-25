@@ -34,8 +34,15 @@ const processRequest = (req , res) => {
             const data = JSON.parse(body)
             // Call a data base to save the info
             res.writeHead(201 , { 'Content-Type': 'application/json; charset=utf-8' }) // The code 201 means that we add new info
-            res.end(JSON.stringify(data))
+            res.end(JSON.stringify(data)) // <- We return the same data to see how it works 
           })
+
+          break
+      
+        default: 
+          res.statusCode = 404
+          res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+          return res.end('404 Not Found')
       }
 
   }

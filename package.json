@@ -15,7 +15,7 @@
   "license": "ISC",
   "homepage": "https://github.com/Jaco25PL/NODE-Project.git",
   "dependencies": {
-    "express": "^4.19.2",
+    "express": "4.19.2",
     "picocolors": "1.0.1"
   },
   "devDependencies": {
