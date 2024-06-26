@@ -14,14 +14,17 @@ app.use((req , res, next) => {
     // Only if we have a POST and Content Type equals to JSON the request will enter here
     let body = ''
 
-    // Listen for the 'data' event
+    // While the request is on we listen for the 'data' event. This will listen for any kind of data being send or recevied
     req.on('data', chunk => {
-        body += chunk.toString()
+        body += chunk.toString() // -> As the chunks arrive we store them in the body variable
     })
 
     req.on('end' , () => {
+
+        // When there's no more data, the event 'end' will run, so we can parse the string to json at once
+
         const data = JSON.parse(body)
-        // Modify the requst and put the info in the req.body
+        // and finally we save the data in the body of the request
         req.body = data
         next()
     })
