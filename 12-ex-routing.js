@@ -2,29 +2,30 @@ const jsonDitto = require('./pokemon/ditto.json')
 const express = require('express')
 
 const app = express()
+app.disable('x-powered-by')
 
 const PORT = process.env.PORT ?? 1234
 
 app.get('/pokemon/ditto', ( req , res ) => { // => Directly go to GET method
 
-    res.json(dittoJSON) // <= the same as -> return res.end(JSON.stringify(dittoJSON))
+    res.json(jsonDitto) // <= the same as -> return res.end(JSON.stringify(dittoJSON))
 
 })
 
 
-app.get('/pokemon', (req , res) => {
+app.post('/pokemon', (req , res) => {
     let body = ''
 
     // Listen for the event data
     req.on('data' , chunk => {
-    body += chunk.toString()
+        body += chunk.toString()
     })
 
     req.on('end', () => {
-    const data = JSON.parse(body)
-    // Call a data base to save the info
-
-    res.status(201).json(data) // <- We return the same data to see how it works 
+        const data = JSON.parse(body)
+        // Call a data base to save the info
+        
+        res.status(201).json(data) // <- We return the same data to see how it works 
     })
 
 })

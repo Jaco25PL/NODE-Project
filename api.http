@@ -1,8 +1,8 @@
 ### Recover info from pokemon ditto
-GET http://localhost:3210/pokemon/ditto
+GET http://localhost:1234/pokemon/ditto
 
 ### Request to create a new pokemon
-POST http://localhost:3210/pokemon
+POST http://localhost:1234/pokemon
 Content-Type: application/json
 
 {
