@@ -38,6 +38,8 @@ app.get('/pokemon/ditto', ( req , res ) => {
 
 app.post('/pokemon', (req, res) => {
 
+    // Here we should save in the data base 
+
     // So now we have the info in the req.body as we specified in the middleware
     res.status(201).json(req.body)
 
