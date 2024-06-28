@@ -1,0 +1,12 @@
+### With this request we get all the movies
+GET http://localhost:1234/movies
+
+### Get a movie by its id using params in the request
+GET http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+
+### Get movies filtering by genre
+GET http://localhost:1234/movies?genre=crime
+###
+GET http://localhost:1234/movies?director=nolan
+###
+GET http://localhost:1234/movies?title=The+dark+knight
