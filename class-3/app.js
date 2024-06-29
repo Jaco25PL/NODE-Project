@@ -1,5 +1,8 @@
 const express = require('express')
 const movies = require('./movies.json')
+const crypto = require('node:crypto')
+const { validateMovie } = require('./schemas/movies')
+const { error } = require('node:console')
 
 const app = express()
 app.disable('x-powered-by')
@@ -32,7 +35,7 @@ app.get('/movies' , (req, res) => {
     if(genre) { // If there is a query with that name we proceed
         
         const filteredByGenre = movies.filter(
-            movie => movie.genre.some(g => g.toLowerCase() === genre.toLowerCase()) // => we use some instead of includes because of case sensitive
+            movie => movie.genre.some(g => g.toLowerCase() === genre.toLowerCase()) // => we use some instead of includes because of case sensitive and because genre is an array
         )
         return res.json(filteredByGenre)
     }
@@ -55,6 +58,26 @@ app.get('/movies' , (req, res) => {
 
 })
 
+
+// PUT ENDPOINT to add a new resource to the database
+app.put('/movies' , (req , res) => {
+
+    const result = validateMovie(req.body) // We pass the request to our validation schema 
+    
+    if (result.error) {
+        return res.status(400).json({ error: JSON.parse(result.error.message)}) // 400 means that the user did something wrong in the request
+    }
+
+    const newMovie = {
+        id: crypto.randomUUID(),
+        ...result.data
+    }
+
+    
+    movies.push(newMovie)
+    
+    res.status(201).json(newMovie)
+})
 
 
 app.listen(PORT, () => {

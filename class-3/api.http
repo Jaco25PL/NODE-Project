@@ -10,3 +10,19 @@ GET http://localhost:1234/movies?genre=crime
 GET http://localhost:1234/movies?director=nolan
 ###
 GET http://localhost:1234/movies?title=The+dark+knight
+
+### Put a new movie
+PUT http://localhost:1234/movies
+	Content-Type: application/json 
+	
+	{
+		"title": "The Godfather",
+		"year": 1975,
+		"director": "Francis Ford Coppola",
+		"duration": 175,
+		"poster": "https://filmartgallery.com/cdn/shop/files/The-Godfather-Part-II-Godfather-Part-2-Vintage-Movie-Poster-Original-Italian-2-foglio-39x55-3748.jpg?height=2048&v=1714532631&width=2048",
+		"genre": [
+			"Crime",
+			"Drama",
+		],
+	}
