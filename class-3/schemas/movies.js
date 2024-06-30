@@ -1,4 +1,4 @@
-// Validations schema for PUT request using zod
+// Validations schema for POST request using zod
 
 const z = require('zod')
 
@@ -19,8 +19,8 @@ const movieSchema = z.object({
     )
 })
 
-function validateMovie (object) {
-    return movieSchema.safeParse(object) // safeParse will return an object that will say if there is an error or if there is data
+function validateMovie ( input ) {
+    return movieSchema.safeParse( input ) // safeParse will return an object that will say if there is an error or if there is data
 } 
 
 module.exports = { validateMovie }

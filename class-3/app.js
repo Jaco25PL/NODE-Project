@@ -1,14 +1,14 @@
 const express = require('express')
 const movies = require('./movies.json')
 const crypto = require('node:crypto')
-const { validateMovie } = require('./schemas/movies')
-const { error } = require('node:console')
 
 const app = express()
 app.disable('x-powered-by')
+app.use(express.json())
+
+const {validateMovie} = require('./schemas/movies')
 
 const PORT = process.env.PORT ?? 1234
-
 
 // ENDPOINT For a request with that URL we'll return the entire json file with all the movies
 // app.get('/movies' , (req, res) => {
@@ -55,29 +55,55 @@ app.get('/movies' , (req, res) => {
     }
 
     res.json(movies) // If there is no query we return all the movies
-
 })
 
 
-// PUT ENDPOINT to add a new resource to the database
-app.put('/movies' , (req , res) => {
+// POST ENDPOINT to add a new resource to the database
+app.post('/movies', (req, res) => {
 
-    const result = validateMovie(req.body) // We pass the request to our validation schema 
+    // let body = ''
+
+    // req.on('data', chunk => {
+    //     body += chunk.toString()
+    // })
+
+    // req.on('end' , () => {
+    //     const data = JSON.parse(body)
     
-    if (result.error) {
-        return res.status(400).json({ error: JSON.parse(result.error.message)}) // 400 means that the user did something wrong in the request
-    }
+    //     const {
+    //         title,
+    //         year,
+    //         director,
+    //         duration,
+    //         poster,
+    //         genre,
+    //         rate
+    //     } = data
 
+    //     const newMovie = {
+    //         id: crypto.randomUUID(),
+    //         ...data
+    //     }
+
+    //     movies.push(newMovie)
+    //     res.status(201).json(newMovie)
+    // })
+
+    const result = validateMovie(req.body)
+
+    if (!result.success) {
+        return res.status(400).json({ error : JSON.parse(result.error.message) })
+    }
+    
     const newMovie = {
         id: crypto.randomUUID(),
         ...result.data
     }
 
-    
-    movies.push(newMovie)
-    
+    movies.push(newMovie) // push to the database    
     res.status(201).json(newMovie)
 })
+  
 
 
 app.listen(PORT, () => {
