@@ -17,12 +17,22 @@ content-type: application/json
 
 {
     "title": "Enojadamente Velozes",
-	"year": 1975,
+	"year": 1934,
   	"director": "Francis Ford Coppola",
   	"duration": 175,
   	"poster": "https://img.fruugo.com/product/4/49/14441494_max.jpg",
   	"genre": [
   	  "Crime",
   	  "Drama"
-  	] 
+  	] ,
+	"views": 12322200
+}
+
+### Do a PATCH to change the year of a resource
+
+PATCH http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+Content-Type: application/json
+
+{
+	"year": 2025
 }

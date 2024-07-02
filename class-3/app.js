@@ -6,7 +6,7 @@ const app = express()
 app.disable('x-powered-by')
 app.use(express.json())
 
-const {validateMovie} = require('./schemas/movies')
+const {validateMovie, validatePartialMovie} = require('./schemas/movies')
 
 const PORT = process.env.PORT ?? 1234
 
@@ -61,6 +61,7 @@ app.get('/movies' , (req, res) => {
 // POST ENDPOINT to add a new resource to the database
 app.post('/movies', (req, res) => {
 
+    // WITHOUT ZOD, VALIDIDATIONS AND THE EXPRESS JSON MIDDLEWARE
     // let body = ''
 
     // req.on('data', chunk => {
@@ -103,7 +104,37 @@ app.post('/movies', (req, res) => {
     movies.push(newMovie) // push to the database    
     res.status(201).json(newMovie)
 })
-  
+
+app.patch('/movies/:id' , (req , res ) => {
+
+    const result = validatePartialMovie(req.body)
+
+    if ( !result.success ) {
+        return res.status(400).json({ error : result.error.message })
+    }
+    
+    const { id } = req.params
+    const movieIndex = movies.findIndex(movie => movie.id === id)
+
+    if ( movieIndex === -1 ) {
+        return res.status(404).json({ message: "Movie not found" })
+    }
+
+    
+    const updateMovie = {
+        ...movies[movieIndex],
+        ...result.data
+    }
+    
+    movies[movieIndex] = updateMovie
+    
+    // console.log(movieIndex) //Movie index in the movies json
+    // console.log(result.data) // return the body request
+    // console.log(movies[movieIndex]) // Returns the movie updated
+    // console.log(updateMovie) // returns the movie updated
+    
+    return res.json(updateMovie)
+})
 
 
 app.listen(PORT, () => {

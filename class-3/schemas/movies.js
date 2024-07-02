@@ -16,11 +16,16 @@ const movieSchema = z.object({
         {
             required_error: 'Genre is required to add a movie'
         }
-    )
+    ),
+    views: z.number().positive().optional()
 })
 
 function validateMovie ( input ) {
     return movieSchema.safeParse( input ) // safeParse will return an object that will say if there is an error or if there is data
 } 
 
-module.exports = { validateMovie }
+function validatePartialMovie ( input ) {
+    return movieSchema.partial().safeParse( input )
+}
+
+module.exports = { validateMovie , validatePartialMovie }
