@@ -7,11 +7,11 @@ app.disable('x-powered-by')
 app.use(express.json())
 
 const {validateMovie, validatePartialMovie} = require('./schemas/movies')
-
 const PORT = process.env.PORT ?? 1234
 
 // ENDPOINT For a request with that URL we'll return the entire json file with all the movies
 // app.get('/movies' , (req, res) => {
+    // res.header('Access-Control-Allow-Origin', '*')
 
 //     res.json(movies)
 
@@ -20,8 +20,8 @@ const PORT = process.env.PORT ?? 1234
 // ENDPOINT using params - We could us regex, and path-to-regex also instead of the url
 app.get('/movies/:id' , (req , res) => {
     
-    const { id } = req.params // => Get the ID param from the request
 
+    const { id } = req.params // => Get the ID param from the request
     const movie = movies.find(movie => movie.id === id) // Find the id movie using js
     if (movie) return res.json(movie)   // Return the movie if it was found 
 
@@ -30,6 +30,8 @@ app.get('/movies/:id' , (req , res) => {
 
 // ENDPOINT wiht query string, in this case we're gonna filter by genre
 app.get('/movies' , (req, res) => {
+
+    res.header('Access-Control-Allow-Origin', '*')
 
     const { genre, director, title } = req.query // Using query, express will detect if there is any query (query -> genre=something)
     if(genre) { // If there is a query with that name we proceed
@@ -91,7 +93,6 @@ app.post('/movies', (req, res) => {
     // })
 
     const result = validateMovie(req.body)
-
     if (!result.success) {
         return res.status(400).json({ error : JSON.parse(result.error.message) })
     }
@@ -107,32 +108,33 @@ app.post('/movies', (req, res) => {
 
 app.patch('/movies/:id' , (req , res ) => {
 
-    const result = validatePartialMovie(req.body)
-
+    const result = validatePartialMovie(req.body) // Use the same schema but using partial in ZOD, this means that every element is optional
     if ( !result.success ) {
         return res.status(400).json({ error : result.error.message })
     }
     
     const { id } = req.params
     const movieIndex = movies.findIndex(movie => movie.id === id)
-
     if ( movieIndex === -1 ) {
         return res.status(404).json({ message: "Movie not found" })
     }
 
-    
     const updateMovie = {
         ...movies[movieIndex],
         ...result.data
     }
     
     movies[movieIndex] = updateMovie
-    
-    // console.log(movieIndex) //Movie index in the movies json
-    // console.log(result.data) // return the body request
-    // console.log(movies[movieIndex]) // Returns the movie updated
-    // console.log(updateMovie) // returns the movie updated
-    
+
+    // const findMovie = movies.find( movie => movie.id === id )
+    // if ( !findMovie ) {
+    //     return res.status(404).json({ message: "Movie not found" })
+    // }
+    // const updateMovie = {
+    //     ...findMovie,
+    //     ...result.data
+    // }
+    // Object.assign( findMovie , result.data ) // Update the orignial file with the new data
     return res.json(updateMovie)
 })
 
