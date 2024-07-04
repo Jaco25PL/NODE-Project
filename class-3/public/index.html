@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies</title>
 
+    <script src="main.js" defer></script>
+
     <style>
         article {
           border: 1px solid #ccc;
@@ -20,7 +22,7 @@
       </style>
 
     <script type="module">
-        fetch('http://localhost:1234/movies?genre=Romance')
+        fetch('http://localhost:1234/movies')
             .then(res => res.json())
             .then(movies => {
                 const html = movies.map(movie => {
@@ -41,5 +43,6 @@
     <main>
 
     </main>
+
 </body>
 </html>

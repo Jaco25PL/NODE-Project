@@ -6,6 +6,9 @@ const app = express()
 app.disable('x-powered-by')
 app.use(express.json())
 
+// Serve static files from the "public" directory
+app.use(express.static('public'))
+
 const {validateMovie, validatePartialMovie} = require('./schemas/movies')
 const PORT = process.env.PORT ?? 1234
 

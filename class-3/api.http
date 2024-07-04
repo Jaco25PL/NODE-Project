@@ -5,7 +5,7 @@ GET http://localhost:1234/movies
 GET http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
 
 ### Get movies filtering by genre
-GET http://localhost:1234/movies?genre=drama
+GET http://localhost:1234/movies?genre=romance
 ###
 GET http://localhost:1234/movies?director=nolan
 ###
