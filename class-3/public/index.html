@@ -3,44 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies</title>
 
+    <link rel="stylesheet" href="../styles/main.css">
 
-    <style>
-        article {
-          border: 1px solid #ccc;
-          padding: 1rem;
-          margin-bottom: 1rem;
-        }
-    
-        img {
-          height: auto;
-          width: 320px;
-          max-width: 100%;
-        }
-      </style>
-
-    <!-- <script type="module">
-        fetch('http://localhost:1234/movies')
-            .then(res => res.json())
-            .then(movies => {
-                const html = movies.map(movie => {
-                    return `
-                        <article>
-                            <h2>${movie.title}</h2>
-                            <img src="${movie.poster}" alt="${movie.title}">
-                        </article>
-                    `
-                }).join('')
-
-                document.querySelector('main').innerHTML = html
-            })  
-    </script> -->
+    <title>Movies</title>   
 
 </head>
 <body>
     <main>
 
+        <header>
+            <div>
+                <div><button type="button" class="genre_btn" name="action">Action</button></div>
+                <div><button type="button" class="genre_btn" name="romance">Romance</button></div>
+                <div><button type="button" class="genre_btn" name="drama">Drama</button></div>
+                <div><button type="button" class="genre_btn" name="crime">Crime</button></div>
+                <div><button type="button" class="genre_btn" name="Sci-Fi">Sci-Fi</button></div>
+                <div><button type="button" class="genre_btn" name="adventure">Adventure</button></div>
+                <div><button type="button" class="genre_btn" name="biography">Biography</button></div>
+            </div>
+        </header>
+
+        <section class="movies_render" id="movies">
+            <!-- render movies -->
+        </section>
     </main>
 
     <script src="main.js" defer></script>

@@ -14,11 +14,5 @@
     "express": "4.19.2",
     "nodemon": "^3.1.4",
     "zod": "3.23.8"
-  },
-  "devDependencies": {
-    "standard": "^17.1.0"
-  },
-  "eslintConfig": {
-    "extends": "standard"
   }
 }

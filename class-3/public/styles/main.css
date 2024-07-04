@@ -1,0 +1,27 @@
+html {
+
+  color-scheme: dark;
+  background-color: #000;
+
+}
+
+.movies_render {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+article {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+img {
+  height: auto;
+  width: 320px;
+  max-width: 100%;
+}
