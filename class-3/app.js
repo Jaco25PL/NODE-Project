@@ -141,6 +141,15 @@ app.patch('/movies/:id' , (req , res ) => {
     return res.json(updateMovie)
 })
 
+app.delete('/movies/:id' , (req, res) => {
+
+    const { id } = req.params
+
+    const movie = movies.find( movie => movie.id === id )
+
+    return res.status(200).json( movie )
+
+})
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)
