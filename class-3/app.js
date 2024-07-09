@@ -144,11 +144,24 @@ app.patch('/movies/:id' , (req , res ) => {
 app.delete('/movies/:id' , (req, res) => {
 
     const { id } = req.params
+    const movieIndex = movies.findIndex( movie => movie.id === id )
 
-    const movie = movies.find( movie => movie.id === id )
+    if (movieIndex === -1) {
+        return res.status(404).json({ message: 'Movie not found' })
+    }
 
-    return res.status(200).json( movie )
+    movies.splice(movieIndex, 1)
 
+    return res.status(200).json( {message: 'Movie deleted'} )
+})
+
+app.options('/movies/:id', (req, res) => {
+
+    // This is for CORS, because delete is a complex methos needs this options method
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE')
+
+    res.send(200)
 })
 
 app.listen(PORT, () => {

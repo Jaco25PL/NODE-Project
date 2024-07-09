@@ -29,6 +29,7 @@ function renderMovies ( movies ) {
                     <h2>${movie.title}</h2>
                     <img src="${movie.poster}" alt="${movie.title}">
                     <div>${movie.genre}</div>
+                    <button id="delete_btn" type="button">Delete</button>
                 </article>
 
             `
@@ -61,20 +62,26 @@ window.addEventListener('popstate' , () => {
 
 
 
+// Delete movie
+const deleteBtn = document.querySelector('#delete_btn')
+
 document.addEventListener('click', e => {
-if (e.target.matches('button')) {
+
+    // if (e.target.matches('button')) {
+
     const article = e.target.closest('article')
     const id = article.dataset.id
 
-    fetch(`http://localhost:1234/movies/${id}`, {
-    method: 'DELETE'
-    })
-    .then(res => {
-        if (res.ok) {
-        article.remove()
-        }
-    })
-    }
+    console.log(id)
+// //     fetch(`http://localhost:1234/movies/${id}`, {
+// //     method: 'DELETE'
+// //     })
+// //     .then(res => {
+// //         if (res.ok) {
+// //         article.remove()
+// //         }
+// //     })
+    // }
 })
 
 fetchMovies()
