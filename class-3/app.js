@@ -141,7 +141,18 @@ app.patch('/movies/:id' , (req , res ) => {
     return res.json(updateMovie)
 })
 
+app.options('/movies/:id', (req, res) => {
+
+    // This is for CORS, because delete is a complex methos needs this options method
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE')
+
+    res.send(200)
+})
+
 app.delete('/movies/:id' , (req, res) => {
+
+    res.header('Access-Control-Allow-Origin', '*')
 
     const { id } = req.params
     const movieIndex = movies.findIndex( movie => movie.id === id )
@@ -155,14 +166,6 @@ app.delete('/movies/:id' , (req, res) => {
     return res.status(200).json( {message: 'Movie deleted'} )
 })
 
-app.options('/movies/:id', (req, res) => {
-
-    // This is for CORS, because delete is a complex methos needs this options method
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE')
-
-    res.send(200)
-})
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)

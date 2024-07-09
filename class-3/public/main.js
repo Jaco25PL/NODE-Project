@@ -15,7 +15,7 @@ function fetchMovies (genre = '') {
             renderMovies(movies)
 
         })
-        .catch( err => console.err(err))
+        .catch( err => console.error(err))
 }
 
     
@@ -25,17 +25,20 @@ function renderMovies ( movies ) {
     if ( movies.length > 0 ) {
         const movie = movies.map( movie => {
             return `
-                <article>
+                <article data-id="${movie.id}">
                     <h2>${movie.title}</h2>
                     <img src="${movie.poster}" alt="${movie.title}">
                     <div>${movie.genre}</div>
-                    <button id="delete_btn" type="button">Delete</button>
+                    <button name="delete" class="delete_btn" type="button">Delete</button>
                 </article>
 
             `
         }).join('')
 
         document.querySelector('#movies').innerHTML = movie
+
+        // addDeleteButtonListeners()
+
     } else {
         console.log('error')
     }
@@ -63,25 +66,21 @@ window.addEventListener('popstate' , () => {
 
 
 // Delete movie
-const deleteBtn = document.querySelector('#delete_btn')
-
 document.addEventListener('click', e => {
+    if (e.target.name === 'delete') {
+        const article = e.target.closest('article')
+        const id = article.dataset.id
 
-    // if (e.target.matches('button')) {
-
-    const article = e.target.closest('article')
-    const id = article.dataset.id
-
-    console.log(id)
-// //     fetch(`http://localhost:1234/movies/${id}`, {
-// //     method: 'DELETE'
-// //     })
-// //     .then(res => {
-// //         if (res.ok) {
-// //         article.remove()
-// //         }
-// //     })
-    // }
+        fetch(`http://localhost:1234/movies/${id}`, {
+            method: "DELETE"
+        })
+            .then(res => {
+                if (res.ok) {
+                    article.remove()
+                }
+            })
+            
+    }
 })
 
 fetchMovies()
