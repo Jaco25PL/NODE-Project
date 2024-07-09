@@ -23,7 +23,7 @@ function fetchMovies (genre = '') {
 function renderMovies ( movies ) {
 
     if ( movies.length > 0 ) {
-        const movie = movies.map( movie => {
+        const movieHTML = movies.map( movie => {
             return `
                 <article data-id="${movie.id}">
                     <h2>${movie.title}</h2>
@@ -35,11 +35,13 @@ function renderMovies ( movies ) {
             `
         }).join('')
 
-        document.querySelector('#movies').innerHTML = movie
+        const moviesContainer = document.querySelector('#movies')
+        moviesContainer.innerHTML = movieHTML
 
-        // addDeleteButtonListeners()
+        moviesContainer.addEventListener('click', handleDeleteBtn) // 
 
     } else {
+
         console.log('error')
     }
 
@@ -66,8 +68,9 @@ window.addEventListener('popstate' , () => {
 
 
 // Delete movie
-document.addEventListener('click', e => {
-    if (e.target.name === 'delete') {
+
+function handleDeleteBtn (e) {
+    if (e.target && e.target.name === 'delete') {
         const article = e.target.closest('article')
         const id = article.dataset.id
 
@@ -79,9 +82,8 @@ document.addEventListener('click', e => {
                     article.remove()
                 }
             })
-            
     }
-})
+}
 
 fetchMovies()
 
